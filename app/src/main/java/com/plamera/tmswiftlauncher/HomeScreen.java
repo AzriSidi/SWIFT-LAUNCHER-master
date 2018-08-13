@@ -85,7 +85,6 @@ public class HomeScreen extends FragmentActivity {
     DeviceInfo deviceInfo;
     Timer timer;
     String logOut;
-    Toast mToast;
     /*String logOutSwift = "";
     String getConnectServer = "";
     String getLogoutStatus = "";
@@ -354,15 +353,6 @@ public class HomeScreen extends FragmentActivity {
 
     public void displayReceiver(){
         try{
-            if(Global.getLoginStatus.equals("LOGOUT")){
-                //deviceService.stopSwift();
-                deviceService.logOut();
-            }else if(Global.getLoginStatus.equals("LOGIN")){
-                if (mToast != null) mToast.cancel();
-                mToast = Toast.makeText(HomeScreen.this, "Logout Failed", Toast.LENGTH_SHORT);
-                mToast.show();
-            }
-
             if (Global.getTask.equals("0") || Global.getTask.isEmpty()){
                 notifyTask.setVisibility(View.INVISIBLE);
             } else {

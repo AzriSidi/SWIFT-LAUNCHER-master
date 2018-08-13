@@ -4,9 +4,14 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.plamera.tmswiftlauncher.Device.DeviceService;
 
 public class MyReceiver extends BroadcastReceiver{
     String TAG = "MyReceiver";
+    Toast mToast;
+    DeviceService deviceService;
     HomeScreen homeScreen = new HomeScreen();
 
     @Override
@@ -25,6 +30,15 @@ public class MyReceiver extends BroadcastReceiver{
             Log.d(TAG,"Queue: "+Global.getQueue);
             Log.d(TAG,"LoginStatus: "+Global.getLoginStatus);
             Log.d(TAG,"CheckConnectServer: "+Global.getServerStatus);
+
+            if(Global.getLoginStatus.equals("LOGOUT")){
+                //deviceService.stopSwift();
+                deviceService.logOut();
+            }else if(Global.getLoginStatus.equals("LOGIN")){
+                if (mToast != null) mToast.cancel();
+                mToast = Toast.makeText(context, "Logout Failed", Toast.LENGTH_SHORT);
+                mToast.show();
+            }
 
             homeScreen.displayReceiver();
         }catch (NullPointerException ex){
