@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-public class AppsVer {
+public class AppVer {
     Context context;
     String versionName = "";
 
-    public AppsVer(Context context){
+    public AppVer(Context context){
         this.context = context;
     }
 

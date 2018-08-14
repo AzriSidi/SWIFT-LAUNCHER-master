@@ -42,7 +42,7 @@ import com.plamera.tmswiftlauncher.Encap.UserDetail;
 import com.plamera.tmswiftlauncher.Encap.WhileList;
 import com.plamera.tmswiftlauncher.JwtUtil.JwtDecode;
 import com.plamera.tmswiftlauncher.JwtUtil.JwtEncode;
-import com.plamera.tmswiftlauncher.Provider.AppsVer;
+import com.plamera.tmswiftlauncher.Provider.AppVer;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -77,7 +77,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends Activity {
     EditText userField, passField;
-    TextView output1,output2,myScroller,appVer;
+    TextView output1,output2,myScroller,appVerTv;
     Intent intent;
     String carrierName;
     String Serveradd, ServerName;
@@ -119,7 +119,7 @@ public class MainActivity extends Activity {
     long currentTime = System.currentTimeMillis();
     DeviceInfo deviceInfo;
     DeviceService deviceService;
-    AppsVer appsVer;
+    AppVer appVer;
     Timer timer;
     int layout = R.layout.layout_3_3;
 
@@ -141,7 +141,7 @@ public class MainActivity extends Activity {
         passField = findViewById(R.id.password);
         output1 = findViewById(R.id.textView2);
         output2 = findViewById(R.id.textView7);
-        appVer = findViewById(R.id.textView24);
+        appVerTv = findViewById(R.id.textView24);
 
         DisplayUsername = userField.getText().toString();
         cb_showPwd = findViewById(R.id.checkBox_ShowPassword);
@@ -159,7 +159,7 @@ public class MainActivity extends Activity {
         Global.mySQLiteAdapter = new DatabaseHandler(this);
         deviceInfo = new DeviceInfo(this);
         deviceService = new DeviceService(this);
-        appsVer = new AppsVer(this);
+        appVer = new AppVer(this);
 
         CheckNetworkTimer = new Timer();
         CheckNetworkTimerTask = new CheckNetworkTimerMethod();
@@ -417,19 +417,19 @@ public class MainActivity extends Activity {
 
     public void AppVerText(){
         String appText = "";
-        Global.swiftVer = appsVer.SwiftVer();
-        Global.launcherVer = appsVer.LauncherVer();
-        Global.agentVer = appsVer.AgentVer();
+        Global.swiftVer = appVer.SwiftVer();
+        Global.launcherVer = appVer.LauncherVer();
+        Global.agentVer = appVer.AgentVer();
         Global.frmVersion = deviceInfo.getFirmVer();
         String fontPath = "fonts/Prototype.ttf";
         Typeface tf = Typeface.createFromAsset(getAssets(), fontPath);
-        appVer.setTypeface(tf);
+        appVerTv.setTypeface(tf);
         if(layout == R.layout.layout_3_2){
             appText = "EMM - "+Global.agentVer+ "  |  LAUNCHER - "+Global.launcherVer;
         }else if(layout == R.layout.layout_3_3){
             appText = "FW - "+Global.frmVersion+"\nEMM - "+Global.agentVer+ "\nLAUNCHER - "+Global.launcherVer;
         }
-        appVer.setText(appText);
+        appVerTv.setText(appText);
     }
 
     // ***** To enable GPS at main *********************

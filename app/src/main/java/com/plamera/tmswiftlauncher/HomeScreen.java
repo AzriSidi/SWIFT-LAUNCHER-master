@@ -29,6 +29,7 @@ import com.plamera.tmswiftlauncher.Device.DeviceInfo;
 import com.plamera.tmswiftlauncher.Device.DeviceOperate;
 import com.plamera.tmswiftlauncher.Device.DeviceService;
 import com.plamera.tmswiftlauncher.Encap.UserDetail;
+import com.plamera.tmswiftlauncher.Provider.AppVer;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -59,7 +60,7 @@ public class HomeScreen extends FragmentActivity {
     @SuppressLint("StaticFieldLeak")
     public static TextView myScroller,notifyTask,notifyQueue,
             networkProvider,signalInfo,broadcastInfo,swiftVer,
-            agentVer,serverName,appVer;
+            agentVer,serverName,appVerTv;
     String Serveradd,ServerName;
     Timer CheckNetworkTimer;
     TelephonyManager tel;
@@ -85,6 +86,7 @@ public class HomeScreen extends FragmentActivity {
     DeviceInfo deviceInfo;
     Timer timer;
     String logOut;
+    AppVer appVer;
     /*String logOutSwift = "";
     String getConnectServer = "";
     String getLogoutStatus = "";
@@ -103,7 +105,7 @@ public class HomeScreen extends FragmentActivity {
         swiftVer = findViewById(R.id.textView17);
         agentVer = findViewById(R.id.textView18);
         serverName = findViewById(R.id.textView19);
-        appVer = findViewById(R.id.textView20);
+        appVerTv = findViewById(R.id.textView20);
         notifyTask = findViewById(R.id.badge_notification);
         notifyQueue = findViewById(R.id.badge_notification_1);
         tel = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
@@ -113,6 +115,7 @@ public class HomeScreen extends FragmentActivity {
         device = new DeviceOperate(this);
         deviceService = new DeviceService(this);
         deviceInfo = new DeviceInfo(this);
+        appVer = new AppVer(this);
 
         IntentData();
 
@@ -293,6 +296,7 @@ public class HomeScreen extends FragmentActivity {
         networkProvider.setText(carrierName+" | "+deviceInfo.getLocalIP()+" | "+SimState);
     }
 
+    @SuppressLint("SetTextI18n")
     private void getSwiftApp() {
         try {
             String loginState = "";
@@ -305,8 +309,8 @@ public class HomeScreen extends FragmentActivity {
             }else if(Global.ldapStatus.contains("false")){
                 loginState = "LOCAL";
             }
-            appVer.setText("LAUNCHER - "+ Global.launcherVer + " | EMM - "+Global.agentVer
-                    + " | SWIFT - "+Global.swiftVer +" | "+Global.loginServer+" | "+loginState);
+            appVerTv.setText("LAUNCHER - "+ appVer.LauncherVer() + " | EMM - " + appVer.AgentVer()
+                    + " | SWIFT - "+ appVer.SwiftVer() +" | "+Global.loginServer+" | "+loginState);
         }catch (NullPointerException e) {
             Log.e(TAG,"NullPointerException: "+e);
         }

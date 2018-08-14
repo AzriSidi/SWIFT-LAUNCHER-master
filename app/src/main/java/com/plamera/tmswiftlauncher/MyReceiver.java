@@ -16,8 +16,9 @@ public class MyReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        deviceService = new DeviceService(context);
         Log.d(TAG,"MyReceiver Start");
+
         try {
             Global.getMessage = intent.getStringExtra("dataMessage");
             Global.getTask = intent.getStringExtra("dataTask");
@@ -31,7 +32,7 @@ public class MyReceiver extends BroadcastReceiver{
             Log.d(TAG,"LoginStatus: "+Global.getLoginStatus);
             Log.d(TAG,"CheckConnectServer: "+Global.getServerStatus);
 
-            if(Global.getLoginStatus.equals("LOGOUT")){
+            if(Global.getLoginStatus.contains("LOGOUT")){
                 //deviceService.stopSwift();
                 deviceService.logOut();
             }else if(Global.getLoginStatus.equals("LOGIN")){
