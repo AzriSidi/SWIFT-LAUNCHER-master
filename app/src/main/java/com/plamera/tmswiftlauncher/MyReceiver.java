@@ -33,7 +33,7 @@ public class MyReceiver extends BroadcastReceiver{
             Log.d(TAG,"CheckConnectServer: "+Global.getServerStatus);
 
             if(Global.getLoginStatus.contains("LOGOUT")){
-                //deviceService.stopSwift();
+                deviceService.stopSwift();
                 deviceService.logOut();
             }else if(Global.getLoginStatus.equals("LOGIN")){
                 if (mToast != null) mToast.cancel();
