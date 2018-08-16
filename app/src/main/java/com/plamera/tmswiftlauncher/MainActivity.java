@@ -181,6 +181,10 @@ public class MainActivity extends Activity {
         Log.d(TAG,"onResume");
         customBuilder = new AlertDialog.Builder(this);
 
+        IntentFilter networkIntentFilter = new IntentFilter(
+                ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkStateReceiver, networkIntentFilter);
+
         try {
             if (Global.status.equals("Online")) {
 
@@ -196,10 +200,6 @@ public class MainActivity extends Activity {
                 Global.CreateMainMenu = false;
                 Global.TTreqSummDate = "";
                 Global.FFreqSummDate = "";
-
-                IntentFilter networkIntentFilter = new IntentFilter(
-                        ConnectivityManager.CONNECTIVITY_ACTION);
-                registerReceiver(networkStateReceiver, networkIntentFilter);
 
                 deviceInfo.queryNetwork();
 
@@ -1447,7 +1447,7 @@ public class MainActivity extends Activity {
             Log.d(TAG,"unRegisterNetworkStateReceiver");
 
             deviceInfo.unRegisterPhoneServiceStateListener();
-            //Log.d(TAG,"unRegisterPhoneServiceStateListener");
+            Log.d(TAG,"unRegisterPhoneServiceStateListener");
 
             //Log.d(TAG,"cancel deviceOperate Receiver");
             //deviceOperate.unregisterReceiver(this);
@@ -1457,7 +1457,6 @@ public class MainActivity extends Activity {
 
 
         } catch (Exception e) {
-            //e.printStackTrace();
             Log.e(TAG,"Exception onstop: "+e.toString());
         }
     }

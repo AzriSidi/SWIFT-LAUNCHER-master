@@ -470,7 +470,7 @@ public class HomeScreen extends FragmentActivity {
             alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     logOut = "REQLOGOUT";
-                    deviceService.logOutState(logOut);
+                    deviceService.logoutState(logOut);
                 }
             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

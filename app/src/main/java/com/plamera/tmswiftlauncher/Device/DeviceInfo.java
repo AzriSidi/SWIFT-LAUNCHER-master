@@ -57,7 +57,10 @@ public class DeviceInfo {
         @Override
         public void onReceive(Context context, Intent intent) {
             Global.EmmStatus = intent.getStringExtra("EmmStatus");
-            Log.d(TAG,Global.EmmStatus!=null?Global.EmmStatus:"Not received");
+            if(Global.EmmStatus == null){
+                Global.EmmStatus = "";
+            }
+            Log.d(TAG,"EmmReceiver: "+Global.EmmStatus);
         }
     }
 

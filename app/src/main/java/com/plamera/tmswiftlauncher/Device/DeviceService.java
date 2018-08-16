@@ -122,15 +122,15 @@ public class DeviceService {
         }
     }
 
-    public void logOutState(String logout){
-        Log.d(TAG,"logOutState: "+logout);
+    public void logoutState(String logout){
+        Log.d(TAG,"logoutState: "+logout);
         try {
             intent = new Intent();
             intent.setAction("com.plamera.LOGOUT_STATE");
             intent.putExtra("logoutState", logout);
             context.sendBroadcast(intent);
         }catch (Exception e) {
-            Log.e(TAG,"logOutEx: "+e.toString());
+            Log.e(TAG,"logoutState: "+e.toString());
         }
     }
 
