@@ -110,6 +110,7 @@ public class MainActivity extends Activity {
     public String MessageFailDialog = "";
     public boolean readytoshowdialog = false;
     public String DataMobile = "";
+    AlertDialog mAlertDialog;
     AlertDialog.Builder customBuilder;
     String signalStrength;
     JwtEncode jwtEncode;
@@ -600,7 +601,6 @@ public class MainActivity extends Activity {
                     String build = "Unauthorized applications have been detected:\n" +
                             "\n" + blApp + "\n" +
                             "   ";
-                    AlertDialog mAlertDialog;
                     AlertDialog.Builder customBuilder = new AlertDialog.Builder(this);
                     customBuilder.setTitle("Warning!");
                     customBuilder.setMessage(build);
@@ -1459,6 +1459,13 @@ public class MainActivity extends Activity {
         } catch (Exception e) {
             Log.e(TAG,"Exception onstop: "+e.toString());
         }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        if(mAlertDialog != null)
+            mAlertDialog.dismiss();
     }
 
     @Override

@@ -129,6 +129,15 @@ public class DeviceService {
             intent.setAction("com.plamera.LOGOUT_STATE");
             intent.putExtra("logoutState", logout);
             context.sendBroadcast(intent);
+
+            Log.d(TAG, "SwiftService: "+isMyServiceRunning());
+            if(isMyServiceRunning()){
+                Log.d(TAG, "SwiftService: Already running");
+                startSwift();
+            }else {
+                Log.d(TAG, "SwiftService: Not running");
+                startSwift();
+            }
         }catch (Exception e) {
             Log.e(TAG,"logoutState: "+e.toString());
         }

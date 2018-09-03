@@ -120,21 +120,13 @@ public class HomeScreen extends FragmentActivity {
         IntentData();
 
         //deviceService.startTrackLog();
-
-        if(deviceService.isMyServiceRunning()){
-            Log.d(TAG, "SwiftService: Already running");
-        }else {
-            Log.d(TAG, "SwiftService: Not running");
-            deviceService.startSwift();
-        }
-
+        deviceService.startSwift();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
         Log.d(TAG, "onResume");
-
         try {
             CheckNetworkRunning = false;
             Global.CreateMainMenu = false;
@@ -290,6 +282,7 @@ public class HomeScreen extends FragmentActivity {
         Log.d(TAG, "DisplayUsername: " + DisplayUsername);
     }
 
+    @SuppressLint("SetTextI18n")
     public void deviceState(){
         SimState = deviceInfo.getSimState();
         carrierName = deviceInfo.getCarrier();
@@ -315,33 +308,6 @@ public class HomeScreen extends FragmentActivity {
             Log.e(TAG,"NullPointerException: "+e);
         }
     }
-
-    /*public BroadcastReceiver MyReceiver = new BroadcastReceiver() {
-        String TAG = "MyReceiver";
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Log.d(TAG,"MyReceiver Start");
-            try {
-                Global.getMessage = intent.getStringExtra("dataMessage");
-                Global.getTask = intent.getStringExtra("dataTask");
-                Global.getQueue = intent.getStringExtra("dataQueue");
-                Global.getLoginStatus = intent.getStringExtra("loginStatus");
-                Global.getServerStatus = intent.getStringExtra("connectServer");
-
-                Log.d(TAG,"Message: "+Global.getMessage);
-                Log.d(TAG,"Task: "+Global.getTask);
-                Log.d(TAG,"Queue: "+Global.getQueue);
-                Log.d(TAG,"LoginStatus: "+Global.getLoginStatus);
-                Log.d(TAG,"CheckConnectServer: "+Global.ServerStatus);
-                if(Global.ServerStatus == null){
-                    Global.ServerStatus = "";
-                }
-                displayReceiver();
-            }catch (NullPointerException ex){
-                Log.d(TAG,"Exception: "+ex);
-            }
-        }
-    };*/
 
     public BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
         String TAG = "networkStateReceiver";
@@ -471,6 +437,9 @@ public class HomeScreen extends FragmentActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     logOut = "REQLOGOUT";
                     deviceService.logoutState(logOut);
+                    pd = ProgressDialog.show(HomeScreen.this, "",
+                            "Signing Out.... Please Wait...", true, false);
+                    pd.show();
                 }
             }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

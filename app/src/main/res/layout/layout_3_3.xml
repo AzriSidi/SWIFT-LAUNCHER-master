@@ -156,7 +156,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:format12Hour="EEEE, dd MMMM yyyy   hh:mm:ss a"
+        android:format12Hour="EEEE, dd MMMM yyyy   h:mm:ss a"
         android:format24Hour="EEEE, dd MMMM yyyy   kk:mm:ss"
         android:text="@string/output"
         android:textSize="@dimen/home_text_size"

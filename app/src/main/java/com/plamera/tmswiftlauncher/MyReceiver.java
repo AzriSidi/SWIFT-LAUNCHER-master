@@ -31,16 +31,15 @@ public class MyReceiver extends BroadcastReceiver{
             Log.d(TAG,"Queue: "+Global.getQueue);
             Log.d(TAG,"LoginStatus: "+Global.getLoginStatus);
             Log.d(TAG,"CheckConnectServer: "+Global.getServerStatus);
-
             if(Global.getLoginStatus.contains("LOGOUT")){
                 deviceService.stopSwift();
                 deviceService.logOut();
-            }else if(Global.getLoginStatus.equals("LOGIN")){
+            }else if(Global.getLoginStatus.equals("LOGOUT_FAIL")){
                 if (mToast != null) mToast.cancel();
                 mToast = Toast.makeText(context, "Logout Failed", Toast.LENGTH_SHORT);
                 mToast.show();
+                homeScreen.pd.dismiss();
             }
-
             homeScreen.displayReceiver();
         }catch (NullPointerException ex){
             Log.d(TAG,"NullPointerException: "+ex);
