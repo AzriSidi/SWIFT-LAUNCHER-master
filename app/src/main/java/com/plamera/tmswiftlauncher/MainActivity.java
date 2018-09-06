@@ -171,6 +171,7 @@ public class MainActivity extends Activity {
         DeviceDetail();
 
         deviceService.startAgent();
+        deviceService.disableBroadcastReceiver();
         //deviceService.stopSwift();
     }
 

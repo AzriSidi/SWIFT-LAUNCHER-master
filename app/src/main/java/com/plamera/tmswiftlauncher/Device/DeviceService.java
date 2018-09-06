@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.plamera.tmswiftlauncher.Global;
 import com.plamera.tmswiftlauncher.MainActivity;
+import com.plamera.tmswiftlauncher.MyReceiver;
 import com.plamera.tmswiftlauncher.TrackLogService;
 
 import java.io.File;
@@ -40,6 +41,7 @@ public class DeviceService {
             intent.putExtra("serverStatus", Global.loginServer);
             intent.putExtra("loginType", Global.UserType);
             intent.putExtra("token", Global.getToken);
+            enableBroadcastReceiver();
             context.startService(intent);
         }catch (Exception ex) {
             Log.e(TAG,"BroadcastExeception: "+ex.toString());
@@ -52,8 +54,8 @@ public class DeviceService {
         intent.setComponent(new ComponentName(swfitPackage,swiftClass));
         context.stopService(intent);
 
-
         List<ApplicationInfo> packages;
+
         PackageManager pm;
         pm = context.getPackageManager();
 
@@ -70,6 +72,24 @@ public class DeviceService {
             mActivityManager.killBackgroundProcesses(packageInfo.packageName);
             Log.d(TAG + "-KILL",packageInfo.packageName);
         }
+    }
+
+    public void enableBroadcastReceiver() {
+        ComponentName receiver = new ComponentName(context, MyReceiver.class);
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
+        Log.d(TAG,"SwiftService: enableBroadcast");
+    }
+
+    public void disableBroadcastReceiver(){
+        ComponentName receiver = new ComponentName(context, MyReceiver.class);
+        PackageManager pm = context.getPackageManager();
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
+        Log.d(TAG,"SwiftService: disableBroadcast");
     }
 
     public void clearCacheSwift(Context mContext) {
